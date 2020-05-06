@@ -120,7 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-TOKEN = "1242291792:AAHtu_DcIoZ67nU3uMDymM_SHKcRP1-QSII"
+TOKEN = "1242291792:AAHXWhU4ao4ndwbaAZc32J_trwRNc7kVJh8"
 
 STATIC_URL = '/static/'
 
