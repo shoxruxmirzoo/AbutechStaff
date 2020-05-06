@@ -21,7 +21,8 @@ class TaskTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Staff)
 class StaffAdmin(admin.ModelAdmin):
-    list_display = ('name', 'team', 'tg_id')
+    list_display = ('name', 'telegram_id')
+    # list_display = ('name', 'team', 'telegram_id')
 
 
 @admin.register(Admins)
