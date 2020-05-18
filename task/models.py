@@ -6,16 +6,17 @@ from shared.models import TimeStampedModel
 
 
 class Tasks(TimeStampedModel):
-    id = models.AutoField(primary_key=True)
-    is_completed = models.BooleanField(default=False)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    from_admin = models.ForeignKey(Admins, on_delete=models.CASCADE)
-    task_type = models.ForeignKey(TaskType, blank=True, on_delete=models.CASCADE)
-    deadline = models.DateTimeField(null=True)
+    task_id = models.IntegerField(default=0)
+    is_completed = models.BooleanField(default=False, blank=True)
+    company = models.CharField(max_length=40, blank=True, null=True)
+    team = models.CharField(max_length=50, blank=True, null=True)
+    from_admin = models.CharField(max_length=30, blank=True, null=True)
+    task_type = models.CharField(max_length=1024, blank=True, null=True)
+    deadline = models.CharField(max_length=30, blank=True, null=True)
     link = models.CharField(max_length=200, blank=True, null=True)
     example = models.CharField(max_length=200, blank=True, null=True)
     more = models.CharField(max_length=1024, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"ID:{self.id} | Team: {self.team} | Type: {self.task_type}"

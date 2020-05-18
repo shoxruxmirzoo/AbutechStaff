@@ -120,8 +120,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-TOKEN = "1242291792:AAHXWhU4ao4ndwbaAZc32J_trwRNc7kVJh8"
-
+TOKEN = "1210123276:AAEpDu74pkg2RgBRKIY-gWEz0YnZPtlXJps"
+CHANNEL = '-1001346501962'
 STATIC_URL = '/static/'
 
 django_heroku.settings(locals())

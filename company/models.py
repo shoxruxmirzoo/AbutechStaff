@@ -20,19 +20,20 @@ class Company(TimeStampedModel):
 
 
 class Staff(TimeStampedModel):
-    name = models.CharField(max_length=30, null=True, blank=True)
+    first_name = models.CharField(max_length=30, null=True, blank=True)
     telegram_id = models.IntegerField(null=True)
     username = models.CharField(max_length=30, null=True, blank=True)
     team = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, null=True, on_delete=models.CASCADE)
+    step = models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.name)
+        return str(self.first_name)
 
 
 class TaskType(TimeStampedModel):
     name = models.CharField(max_length=30, null=True, blank=True)
-    user = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{str(self.name)}"
@@ -44,3 +45,9 @@ class Admins(TimeStampedModel):
 
     def __str__(self):
         return f"{str(self.name)}"
+
+
+class Unknown(TimeStampedModel):
+    first_name = models.CharField(max_length=30, blank=True, null=True)
+    username = models.CharField(max_length=30, blank=True, null=True)
+    telegram_id = models.IntegerField(default=0, blank=True, null=True)

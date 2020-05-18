@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Team, TaskType, Company, Staff, Admins
+from .models import Team, TaskType, Company, Staff, Admins, Unknown
 
 
 # Register your models here.
@@ -16,15 +16,19 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @admin.register(TaskType)
 class TaskTypeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'user')
+    list_display = ('name', 'team')
 
 
 @admin.register(Staff)
 class StaffAdmin(admin.ModelAdmin):
-    list_display = ('name', 'telegram_id')
-    # list_display = ('name', 'team', 'telegram_id')
+    list_display = ('first_name', 'team', 'telegram_id')
 
 
 @admin.register(Admins)
 class AdminsAdmin(admin.ModelAdmin):
     list_display = ('name', 'team')
+
+
+@admin.register(Unknown)
+class UnknownAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'username', 'telegram_id')
