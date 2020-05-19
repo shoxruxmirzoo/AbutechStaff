@@ -75,8 +75,8 @@ def main(message):
     get = Staff.objects.get(telegram_id=user_id)
     if is_admin(message, user_id):
         get.step = 0
-        text = f'Salom, {first_name}'
-        bot.send_message(user_id, text, reply_markup=main_menu())
+        text = f'Salom, *{first_name}*,\n*ABUTECH* topshiriq botiga xush kelibsiz!\n\n_Bot test rejimida ishlayapti!_'
+        bot.send_message(user_id, text, parse_mode='Markdown', reply_markup=main_menu())
         get.step = 1
         get.save()
 
@@ -85,19 +85,28 @@ def main(message):
 def show_stats(message):
     task_count = Tasks.objects.all().count()
     completed_task_count = CompletedTasks.objects.all().count()
-    media_task_count = Tasks.objects.all().filter(team='Media').count()
-    marketing_task_count = Tasks.objects.all().filter(team='Marketing').count()
-    design_task_count = Tasks.objects.all().filter(team='Dizayn').count()
+    uncompleted_task_count = Tasks.objects.all().filter(is_completed=False).count()
+    media_task_count = Tasks.objects.all().filter(team='Media', is_completed=True).count()
+    marketing_task_count = Tasks.objects.all().filter(team='Marketing', is_completed=True).count()
+    design_task_count = Tasks.objects.all().filter(team='Dizayn', is_completed=True).count()
 
-    # print(Tasks.objects.all().filter())
+    companies = Company.objects.values_list('name', flat=True)
+    teams = Team.objects.values_list('name', flat=True)
 
-    msg = 'Umumiy vazifalar: {}\n'.format(task_count)
-    msg += 'Bajarilgan: {}\n'.format(completed_task_count)
-    msg += 'Media jamoasi: {}\n'.format(media_task_count)
-    msg += 'Marketing jamoasi: {}\n'.format(marketing_task_count)
-    msg += 'Dizayn jamoasi: {}\n'.format(design_task_count)
+    msg = 'Umumiy vazifalar soni: {}\n\n'.format(task_count)
+    msg += '*Bajarildi:* {}\n'.format(completed_task_count)
+    msg += '*Bajarilmagan:* {}\n\n'.format(uncompleted_task_count)
+    msg += 'Jamoalar bo\'yicha\n'
+    for i in teams:
+        msg += f"*{i}:* {Tasks.objects.all().filter(team=i).count()}\n"
 
     bot.send_message(user_id, msg, parse_mode='Markdown')
+
+    comp_msg = "Kompaniyalar bo'yicha\n\n"
+    for i in companies:
+        comp_msg += f"*{i}:* {Tasks.objects.all().filter(company=i).count()}\n"
+    bot.send_message(user_id, comp_msg, parse_mode='Markdown')
+    return main(message)
 
 
 @bot.message_handler(regexp=btn['clean'])
@@ -109,16 +118,63 @@ def clean(message):
         return main(message)
 
 
-@bot.message_handler(func=lambda message: get.step == 1)
+@bot.message_handler(func=lambda message: get.step == 1 or get.step == 11)
 def company(message):
     # Faqat admin VA VAZIFA BERISH yuborilganda
-    if is_admin(message, user_id) and message.text == btn['order_task']:
-        global task_data
-        text = "Kompaniyani tanlang"
-        bot.send_message(user_id, text, reply_markup=company_menu())
-        get.step = 2
+    if is_admin(message, user_id):
+        if message.text == btn['order_task']:
+            global task_data
+            text = "Kompaniyani tanlang"
+            bot.send_message(user_id, text, reply_markup=company_menu())
+            get.step = 2
+        elif message.text == btn['send_tasks'] or get.step == 11:
+            text = 'Topshiriq ID raqamini kiriting'
+            bot.send_message(user_id, text, reply_markup=navigation_menu[1])
+            get.step = 12
 
 
+# ==========================SEND TASK=======================
+@bot.message_handler(func=lambda message: get.step == 12, content_types='text')
+def check_task_id(message):
+    if is_admin(message, user_id):
+        global id
+        id = message.text
+        find_id = Tasks.objects.filter(task_id=id).exists()
+        if find_id:
+            find_id = Tasks.objects.get(task_id=id)
+            id_msg = "*TOPSHIRIQ ID: {} | Vaqt: {}*\n\n".format(id, find_id.created_at)
+            id_msg += "*Kompaniya:* {}\n".format(find_id.company)
+            id_msg += "*Jamoa:* {}\n".format(find_id.team)
+            id_msg += "*Vazifa turi:* {}\n".format(find_id.task_type)
+            id_msg += "*Yubordi:* {}\n".format(find_id.from_admin)
+
+            text = 'Topshiriq topildi.\n\n*Iltimos uni to\'gri ekanini tekshiring*'
+
+            bot.send_message(user_id, id_msg, parse_mode='Markdown', reply_markup=confirm_menu())
+            bot.send_message(user_id, text, parse_mode='Markdown', reply_markup=confirm_menu())
+            get.step = 13
+        else:
+            text = "Topshiriq topilmadi.\n_ID raqam xato. Bazadan tekshirib ko'ring_"
+            bot.send_message(user_id, text, parse_mode='Markdown', reply_markup=hide_menu())
+            get.step = 11
+            return company(message)
+
+
+# Completed task uchun migrate qilish
+# TRY qo'yilishi mumkin if xatolik == True)
+@bot.message_handler(func=lambda message: get.step == 13, regexp=btn['confirm'])
+def complete_task(message):
+    find_task = Tasks.objects.get(task_id=id)
+    find_task.is_completed = True
+    now = datetime.now().strftime("%d.%m.%Y, %H:%M")
+    CompletedTasks.objects.create(completed_id=find_task.task_id, team=find_task.team,
+                                              company=find_task.company, time=now)
+    text = "Vazifa topshirildi"
+    bot.send_message(user_id, text)
+    return main(message)
+
+
+# ==========================ORDER TASK=======================
 @bot.message_handler(func=lambda message: get.step == 2)
 def team(message):
     if is_admin(message, user_id) and message.text in company_name:
@@ -279,7 +335,8 @@ def save_data(message):
     task_id = number + 1
     # ======BAZAGA YANGI OBJECT CREATE======
     try:
-        Tasks.objects.create(task_id=task_id, company=data['company'], team=data['team'], mention=data['mention'], task_type=data['task_type'], deadline=data['deadline'], link=data['url'], more=data['more_text'], from_admin=admin)
+        time = datetime.now().strftime("%d.%m.%Y, %H:%M")
+        Tasks.objects.create(task_id=task_id, created_at=time, company=data['company'], team=data['team'], mention=data['mention'], task_type=data['task_type'], deadline=data['deadline'], link=data['url'], more=data['more_text'], from_admin=admin)
     except:
         print('ERROR')
         pass

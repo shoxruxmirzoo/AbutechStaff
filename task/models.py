@@ -16,18 +16,19 @@ class Tasks(TimeStampedModel):
     link = models.CharField(max_length=200, blank=True, null=True)
     more = models.CharField(max_length=1024, blank=True, null=True)
     mention = models.CharField(max_length=40, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return f"ID:{self.task_id} | Team: {self.team} | Type: {self.company}"
 
 
 class CompletedTasks(TimeStampedModel):
-    task_id = models.ForeignKey(Tasks, on_delete=models.CASCADE)
+    completed_id = models.IntegerField(default=0)
     team = models.CharField(max_length=40, null=True, blank=True)
     company = models.CharField(max_length=40, null=True, blank=True)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return f"ID: {self.task_id} | Team: {self.team}"
+        return f"ID: {self.completed_id} | Team: {self.team}"
 

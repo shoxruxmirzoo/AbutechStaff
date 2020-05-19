@@ -11,4 +11,4 @@ class TasksAdmin(admin.ModelAdmin):
 
 @admin.register(CompletedTasks)
 class CompletedTasksAdmin(admin.ModelAdmin):
-    list_display = ('task_id', 'team', 'company', 'time')
+    list_display = ('completed_id', 'team', 'company', 'time')

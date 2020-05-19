@@ -110,6 +110,8 @@ LANGUAGE_CODE = 'uz-uz'
 
 TIME_ZONE = 'Asia/Tashkent'
 
+# DATETIME_FORMAT = '%d.%m.%Y %H:%M'
+
 USE_I18N = True
 
 USE_L10N = True
