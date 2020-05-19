@@ -6,6 +6,7 @@ btn = {
     'back': '⬅️Ortga',
     'clean': "O'chirish",
     'next': 'Davom etish',
+    'confirm': 'Tasdiq'
 }
 STEPS = {
     'main': 0,

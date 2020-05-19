@@ -6,9 +6,9 @@ from .models import Tasks, CompletedTasks
 
 @admin.register(Tasks)
 class TasksAdmin(admin.ModelAdmin):
-    list_display = ('id', 'team', 'task_type', 'company', 'deadline', 'from_admin', 'is_completed')
+    list_display = ('task_id', 'team', 'task_type', 'company', 'deadline', 'from_admin', 'created_at', 'is_completed')
 
 
 @admin.register(CompletedTasks)
 class CompletedTasksAdmin(admin.ModelAdmin):
-    list_display = ('id', 'team', 'company', 'time')
+    list_display = ('task_id', 'team', 'company', 'time')

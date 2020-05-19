@@ -5,7 +5,7 @@ from shared.models import TimeStampedModel
 # Create your models here.
 class Team(TimeStampedModel):
     name = models.CharField(max_length=30, null=True)
-    task_completed = models.IntegerField(default=0)
+    task_completed = models.IntegerField(default=0, null=True)
 
     def __str__(self):
         return self.name
@@ -33,7 +33,7 @@ class Staff(TimeStampedModel):
 
 class TaskType(TimeStampedModel):
     name = models.CharField(max_length=30, null=True, blank=True)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    teamname = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{str(self.name)}"
@@ -51,3 +51,11 @@ class Unknown(TimeStampedModel):
     first_name = models.CharField(max_length=30, blank=True, null=True)
     username = models.CharField(max_length=30, blank=True, null=True)
     telegram_id = models.IntegerField(default=0, blank=True, null=True)
+
+
+class Channel(TimeStampedModel):
+    name = models.CharField(max_length=40, blank=True, null=True)
+    channel_id = models.CharField(max_length=40, blank=True, null=True)
+
+    def __str__(self):
+        return f"{str(self.name)}"

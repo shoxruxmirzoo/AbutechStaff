@@ -62,12 +62,52 @@ def task_menu():
     return buttons
 
 def task_design_menu():
-    pass
+    buttons = ReplyKeyboardMarkup(True, True, row_width=3)
+    name = TaskType.objects.all().filter(teamname__name='Dizayn')
+    key = [KeyboardButton(text=str(text)) for text in name]
+    clean = KeyboardButton(btn['clean'])
+    buttons.add(*key)
+    buttons.add(clean)
+    return buttons
+
+
 def task_media_menu():
-    pass
+    buttons = ReplyKeyboardMarkup(True, True, row_width=3)
+    name = TaskType.objects.all().filter(teamname__name='Media')
+    key = [KeyboardButton(text=str(text)) for text in name]
+    clean = KeyboardButton(btn['clean'])
+    buttons.add(*key)
+    buttons.add(clean)
+    return buttons
+
 
 def task_marketing_menu():
-    pass
+    buttons = ReplyKeyboardMarkup(True, True, row_width=3)
+    name = TaskType.objects.all().filter(teamname__name='Marketing')
+    key = [KeyboardButton(text=str(text)) for text in name]
+    clean = KeyboardButton(btn['clean'])
+    buttons.add(*key)
+    buttons.add(clean)
+    return buttons
+
+
+def marketing_mention_menu():
+    buttons = ReplyKeyboardMarkup(True, True, row_width=3)
+    name = Staff.objects.all().filter(team__name='Marketing')
+    key = [KeyboardButton(text=str(text)) for text in name]
+    clean = KeyboardButton(btn['clean'])
+    buttons.add(*key)
+    buttons.add(clean)
+    return buttons
+
+
+def confirm_menu():
+    buttons = ReplyKeyboardMarkup(True, True, row_width=3)
+    clean = KeyboardButton(btn['clean'])
+    key = KeyboardButton(btn['confirm'])
+    buttons.add(key, clean)
+
+    return buttons
 
 
 def task_menu_name():
