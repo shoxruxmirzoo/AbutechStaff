@@ -6,7 +6,12 @@ btn = {
     'back': '⬅️Ortga',
     'clean': "O'chirish",
     'next': 'Davom etish',
-    'confirm': 'Tasdiq'
+    'confirm': 'Tasdiq',
+               
+    # STATISTICS MENU
+    'team': 'Jamoa',
+    'company': 'Kompaniya',
+    'general': 'Umumiy',
 }
 STEPS = {
     'main': 0,

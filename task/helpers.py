@@ -31,6 +31,40 @@ def main_menu():
     return buttons
 
 
+def statistics_menu():
+    buttons = ReplyKeyboardMarkup(True, True, row_width=3)
+    key = [KeyboardButton(btn['general']),
+           KeyboardButton(btn['team']),
+           KeyboardButton(btn['company'])]
+    clean = KeyboardButton(btn['clean'])
+    buttons.add(*key)
+    buttons.add(clean)
+    return buttons
+
+
+def team_stat_menu():
+    buttons = ReplyKeyboardMarkup(True, True, row_width=3)
+    name = Team.objects.values_list('name', flat=True)
+    key = [KeyboardButton(text=text) for text in name]
+    clean = [KeyboardButton(btn['clean']),
+             KeyboardButton(btn['back'])]
+    buttons.add(*key)
+    buttons.add(*clean)
+    return buttons
+
+
+def company_stat_menu():
+    buttons = ReplyKeyboardMarkup(True, True, row_width=3)
+    name = Company.objects.values_list('name', flat=True)
+    key = [KeyboardButton(text=text) for text in name]
+    clean = [KeyboardButton(btn['clean']),
+             KeyboardButton(btn['back'])]
+    buttons.add(*key)
+    buttons.add(*clean)
+    return buttons
+
+
+
 def company_menu():
     buttons = ReplyKeyboardMarkup(True, True, row_width=3)
     name = Company.objects.values_list('name', flat=True)
