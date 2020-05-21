@@ -77,7 +77,7 @@ def main(message):
     try:
         get = Staff.objects.get(telegram_id=user_id)
     except:
-        pass
+        return failed(message)
     if is_admin(message, user_id):
         get.step = 0
         text = f'Salom, *{first_name}*,\n*ABUTECH* topshiriq botiga xush kelibsiz!\n\n_Bot test rejimida ishlayapti!_'
