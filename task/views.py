@@ -257,7 +257,9 @@ def statistics_team_one(message):
             text += f"{i}, "
         bot.send_message(user_id, text, parse_mode='Markdown', reply_markup=navigation_menu[0])
         get.step = 22
-
+    elif message.text == btn['back']:
+        get.step = 21
+        return company(message)
 
 @bot.message_handler(func=lambda message: get.step == 25, content_types='text')
 def statistics_company_one(message):
@@ -282,6 +284,9 @@ def statistics_company_one(message):
             text += f"{i}, "
         bot.send_message(user_id, text, parse_mode='Markdown', reply_markup=navigation_menu[0])
         get.step = 22
+    elif message.text == btn['back']:
+        get.step = 21
+        return company(message)
 
 
 # ==========================ORDER TASK=======================
