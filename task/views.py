@@ -8,7 +8,7 @@ from .const import btn, STEPS, task_btn
 from .helpers import main_menu, company_menu, hide_menu, team_menu, task_menu, task_menu_name
 from .helpers import navigation, task_marketing_menu, task_design_menu, task_media_menu
 from .helpers import marketing_mention_menu, confirm_menu, statistics_menu, team_stat_menu
-from .helpers import company_stat_menu
+from .helpers import company_stat_menu, back_menu
 from django.conf import settings
 from django.db.models import F
 from django.http import HttpResponse
@@ -79,6 +79,7 @@ def main(message):
     except:
         return failed(message)
     if is_admin(message, user_id):
+        get = Staff.objects.get(telegram_id=user_id)
         get.step = 0
         text = f'Salom, *{first_name}*,\n*ABUTECH* topshiriq botiga xush kelibsiz!\n\n_Bot test rejimida ishlayapti!_'
         bot.send_message(user_id, text, parse_mode='Markdown', reply_markup=main_menu())
@@ -112,7 +113,13 @@ def main(message):
 #         comp_msg += f"*{i}:* {Tasks.objects.all().filter(company=i).count()}\n"
 #     bot.send_message(user_id, comp_msg, parse_mode='Markdown')
 #     return main(message)
-
+@bot.message_handler(regex=btn['main_menu'])
+def back_main_menu(message):
+    if is_admin(message, user_id):
+        get.step = 0
+        for i in data:
+            i = " "
+        return main(message)
 
 @bot.message_handler(regexp=btn['clean'])
 def clean(message):
@@ -459,8 +466,8 @@ def save_data(message):
         print('ERROR')
         pass
 
-    text = 'Ma\'lumotlar saqlandi!'
-    bot.send_message(user_id, text, reply_markup=hide_menu())
+    text = "*Ma'lumotlar saqlandi!.* Bosh menyuga qayting"
+    bot.send_message(user_id, text, parse_mode='Markdown', reply_markup=back_menu())
 
     # ========KANALGA FORWARD QILISH======
     saved = ''

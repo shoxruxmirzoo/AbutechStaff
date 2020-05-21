@@ -11,6 +11,13 @@ from django.conf import settings
 def hide_menu():
     return ReplyKeyboardRemove()
 
+def back_menu():
+    buttons = ReplyKeyboardMarkup(True, True, row_width=3)
+    main = KeyboardButton(btn['main_menu'])
+    buttons.add(*main)
+    return buttons
+
+
 
 def navigation():
     button1 = ReplyKeyboardMarkup(True, True, row_width=2)
