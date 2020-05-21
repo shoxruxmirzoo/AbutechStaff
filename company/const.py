@@ -1,0 +1,3 @@
+STEPS = {
+    'START': 0
+}
