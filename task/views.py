@@ -380,6 +380,7 @@ def get_more_text(message):
 @bot.message_handler(func=lambda message: get.step == 6, regexp=btn['next'])
 def task_type(message):
     name = Team.objects.values_list('name', flat=True)
+    print(name)
     # 0.Marketing, 1.Media, 2.Dizayn
     if data['team'] == name[0]:  # Marketing
 
