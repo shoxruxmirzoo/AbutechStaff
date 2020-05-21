@@ -12,7 +12,10 @@ def index(request):
     completed = all_task.filter(is_completed=True)
     completed_count = completed.count()
     uncompleted = all_task.filter(is_completed=False)
-    overall_rating = float((completed_count/all_task_count)*100)
+    try:
+        overall_rating = float((completed_count/all_task_count)*100)
+    except ZeroDivisionError:
+        overall_rating = 0
     company = Company.objects.all()
 
 
