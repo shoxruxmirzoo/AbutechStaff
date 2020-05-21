@@ -113,7 +113,7 @@ def main(message):
 #         comp_msg += f"*{i}:* {Tasks.objects.all().filter(company=i).count()}\n"
 #     bot.send_message(user_id, comp_msg, parse_mode='Markdown')
 #     return main(message)
-@bot.message_handler(regex=btn['main_menu'])
+@bot.message_handler(regexp=btn['main_menu'])
 def back_main_menu(message):
     if is_admin(message, user_id):
         get.step = 0
