@@ -14,7 +14,7 @@ def hide_menu():
 def back_menu():
     buttons = ReplyKeyboardMarkup(True, True, row_width=3)
     main = KeyboardButton(btn['main_menu'])
-    buttons.add(*main)
+    buttons.add(main)
     return buttons
 
 
