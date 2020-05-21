@@ -14,7 +14,7 @@ class Team(TimeStampedModel):
 class Company(TimeStampedModel):
     name = models.CharField(max_length=30, blank=True, null=True)
     posts = models.IntegerField(default=0, blank=True, null=True)
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name
