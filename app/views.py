@@ -19,12 +19,27 @@ def index(request):
     company = Company.objects.all()
 
 
+    # Jamoa stats
+
+    # team_name = Team.objects.values_list('name', flat = True)
+    team_all = Tasks.objects.values_list('team', flat=True)
+    team_name = list(dict.fromkeys(team_all))       
+ 
+    # Maqola
+
+    # Vazifa
+
+    # Ischilar
+
+    staff_all = Staff.objects.all()
+
 
 
 
 
     mydict = {"all_task": all_task, 'completed': completed, 'uncompleted': uncompleted,
-            'overall_rating': overall_rating, 'company': company} 
+            'overall_rating': overall_rating, 'company': company, 'team_name': team_name,
+            'staff_all': staff_all} 
     return render(request, "index.html", context=mydict)
 
 @login_required(login_url="/login/")

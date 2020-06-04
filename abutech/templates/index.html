@@ -115,7 +115,7 @@
                 </div>
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 60, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
                       <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
                         <span class="d-none d-md-block">Month</span>
                         <span class="d-md-none">M</span>
@@ -166,10 +166,10 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Page visits</h3>
+                  <h3 class="mb-0">Jamoa statistikasi</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                  <i class="ni ni-single-02"></i>
                 </div>
               </div>
             </div>
@@ -178,20 +178,23 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Page name</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col">Unique users</th>
-                    <th scope="col">Bounce rate</th>
+                    <th scope="col">Jamoalar</th>
+                    <th scope="col">Topshiriqlar</th>
+                    <th scope="col">Bajardi</th>
+                    <th scope="col">Unumdorligi</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {% for i in team_name %}
                   <tr>
                     <th scope="row">
-                      /argon/
+                      {{ i }}
                     </th>
+                    {% for j in team_name %}
                     <td>
-                      4,569
+                      {{ j}}
                     </td>
+                    {% endfor %}
                     <td>
                       340
                     </td>
@@ -199,62 +202,8 @@
                       <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/index.html
-                    </th>
-                    <td>
-                      3,985
-                    </td>
-                    <td>
-                      319
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/charts.html
-                    </th>
-                    <td>
-                      3,513
-                    </td>
-                    <td>
-                      294
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/tables.html
-                    </th>
-                    <td>
-                      2,050
-                    </td>
-                    <td>
-                      147
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/profile.html
-                    </th>
-                    <td>
-                      1,795
-                    </td>
-                    <td>
-                      190
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                    </td>
-                  </tr>
+                  {% endfor %}
+              
                 </tbody>
               </table>
             </div>
@@ -265,10 +214,10 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Social traffic</h3>
+                  <h3 class="mb-0">Maqola</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                  <i class="ni ni-building"></i>
                 </div>
               </div>
             </div>
@@ -277,9 +226,9 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Referral</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col"></th>
+                    <th scope="col">Nomi</th>
+                    <th scope="col">Kontent</th>
+                    <th scope="col">Natija</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -379,6 +328,107 @@
           </div>
         </div>
       </div>
+
+
+
+
+
+
+      <!-- Ikkinchi chart-Info -->
+      <div class="row mt-5">
+        <div class="col-xl-8 mb-5 mb-xl-0">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Vazifa statistikasi</h3>
+                </div>
+                <div class="col text-right">
+                  <i class="ni ni-bell-55"></i>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Turi</th>
+                    <th scope="col">Soni</th>
+                    <th scope="col">Mas'ul</th>
+                    <th scope="col">Eng faol</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      Moushn
+                    </th>
+                    <td>
+                      23
+                    </td>
+                    <td>
+                      Media
+                    </td>
+                    <td>
+                      Express24
+                    </td>
+                  </tr>
+                  
+              
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Ishchilar</h3>
+                </div>
+                <div class="col text-right">
+                  <i class="ni ni-user-run"></i>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Ism</th>
+                    <th scope="col">Jamoa</th>
+                    <th scope="col">Sana</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in staff_all %}
+                  <tr>
+                    <th scope="row">
+                      {{i}}
+                    </th>
+                    <td>
+                      {{i.team}}
+                    </td>
+                    <td>
+                      {{ i.created_at }}
+                    </td>
+                  </tr>
+                  {%endfor%}
+                
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
 
       {% include "includes/footer.html" %}
 
